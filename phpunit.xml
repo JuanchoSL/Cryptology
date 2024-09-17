@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php" verbose="true" colors="true" cacheResult="false">
+    <testsuites>
+        <testsuite name="All Tests Suite">
+            <directory>./tests/</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <env name="SERVER_PRIVATE" value="data/server.key" force="true" />
+        <env name="SERVER_CERT" value="data/server.crt" force="true" />
+        <env name="SERVER_PUBLIC" value="data/server.pub" force="true" />
+        <env name="SOCKET_PRIVATE" value="data/socket.key" force="true" />
+        <env name="SOCKET_CERT" value="data/socket.crt" force="true" />
+        <env name="SOCKET_PUBLIC" value="data/socket.pub" force="true" />
+        <env name="GPG_SERVER_KEY" value="3D9835CA46B963A6EFDBE15EBD4DF686C5B7DCAB" force="true" />
+        <env name="GPG_SERVER_PASS" value="kyoku" force="true" />
+        <env name="GPG_CLIENT_KEY" value="3D9835CA46B963A6EFDBE15EBD4DF686C5B7DCAB" force="true" />
+        <env name="GPG_CLIENT_PASS" value="kyoku" force="true" />
+    </php>
+</phpunit>

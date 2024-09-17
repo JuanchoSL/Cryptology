@@ -1,0 +1,19 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+services:
+
+  phpcrypto:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    container_name: phpcrypto
+    environment:
+      - SHELL=/bin/bash
+    volumes:
+      - .:/application
+      - ./docker/php/conf.d/php.ini:/usr/local/etc/php/php.ini
+      - ./docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ./docker/php/conf.d/xhprof.ini:/usr/local/etc/php/conf.d/xhprof.ini
+      - ./docker/php/conf.d/gnupg.ini:/usr/local/etc/php/conf.d/gnupg.ini
+      - ./docker/php/conf.d/mcrypt.ini:/usr/local/etc/php/conf.d/mcrypt.ini
