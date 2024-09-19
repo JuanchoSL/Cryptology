@@ -31,6 +31,9 @@ class Pkcs1 extends AbstractOpenssl implements MultiReceiverInterface, MultiEncr
 
     public function encrypt(string $origin): array
     {
+        if (empty($this->certificates)) {
+            throw new PreconditionRequiredException("The receivers public keys are required in order to encrypt a message");
+        }
         if ($this->checkForFile($origin)) {
             $origin = $this->getFromFile($origin);
         }
@@ -91,7 +94,7 @@ class Pkcs1 extends AbstractOpenssl implements MultiReceiverInterface, MultiEncr
     public function verify(string $origin): bool|string
     {
         if (empty($this->certificates)) {
-            throw new PreconditionRequiredException("The public keys fron accepted senders are required in order to verify a message");
+            throw new PreconditionRequiredException("The public keys from accepted senders are required in order to verify a message");
         }
         if ($this->checkForFile($origin)) {
             $origin = $this->getFromFile($origin);

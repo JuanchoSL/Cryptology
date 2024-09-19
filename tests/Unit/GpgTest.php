@@ -16,7 +16,7 @@ class GpgTest extends TestCase
                 (new Gnupg())->setPrivateKey(getenv('GPG_SERVER_KEY'), getenv('GPG_SERVER_PASS'))->setRemotes([getenv('GPG_CLIENT_KEY')]),
                 (new Gnupg())->setPrivateKey(getenv('GPG_CLIENT_KEY'), getenv('GPG_CLIENT_PASS'))->setRemotes([getenv('GPG_SERVER_KEY')]),
             ],
-            'GnuConsole' => [
+            'GpgConsole' => [
                 (new GpgConsole())->setPrivateKey(getenv('GPG_SERVER_KEY'), getenv('GPG_SERVER_PASS'))->setRemotes([getenv('GPG_CLIENT_KEY')]),
                 (new GpgConsole())->setPrivateKey(getenv('GPG_CLIENT_KEY'), getenv('GPG_CLIENT_PASS'))->setRemotes([getenv('GPG_SERVER_KEY')]),
             ],
