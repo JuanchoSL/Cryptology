@@ -31,7 +31,7 @@ class SignaturesTest extends TestCase
             ],
             'GpgConsole' => [
                 (new GpgConsole())->setRemotes([getenv('GPG_CLIENT_KEY')])->setPrivateKey(getenv('GPG_SERVER_KEY'), getenv('GPG_SERVER_PASS')),
-                (new Gnupg())->setRemotes([getenv('GPG_SERVER_KEY')])->setPrivateKey(getenv('GPG_CLIENT_KEY'), getenv('GPG_CLIENT_PASS')),//->setPublicKey($public_receiver),
+                (new GpgConsole())->setRemotes([getenv('GPG_SERVER_KEY')])->setPrivateKey(getenv('GPG_CLIENT_KEY'), getenv('GPG_CLIENT_PASS')),//->setPublicKey($public_receiver),
             ],
             /*
             'PrivatePublicString' => [

@@ -190,26 +190,26 @@ Require the gpg library installed for console
 #### Examples
 ```php
 $crypter = new GpgConsole;
-$crypter->setRemotes(['/path/to/receiver/certificate.crt']);
+$crypter->setRemotes(['receiver_fingerprint']);
 $crypted_message = $crypter->encrypt('A message to encrypt');//An array with the crypted message in first position and an array with the passphrases as second element of the response
 
 $decrypter = new GpgConsole;
-$decrypter->setPrivateKey('/path/to/my/private_key.key');
+$decrypter->setPrivateKey('private_fingerprint');
 $decrypted_message = $decrypter->decrypt($crypted_message);
 ```
 
 You can sign the sended message with your own private key in order to ensure your identity
 ```php
 $crypter = new GpgConsole;
-$crypter->setRemotes(['/path/to/receiver/certificate.crt']);
-$crypter->setPrivateKey('/path/to/my/private_key.key');
+$crypter->setPrivateKey('private_fingerprint');
+$crypter->setRemotes(['receiver_fingerprint']);
 $signed_message = $crypter->sign('A message to sign');
 ```
 And verify the received message using the sender certificate
 ```php
 $decrypter = new GpgConsole;
-$decrypter->setPrivateKey('/path/to/my/private_key.key');
-$decrypter->setRemotes(['/path/to/sender/certificate.crt']);
+$decrypter->setPrivateKey('private_fingerprint');
+$decrypter->setRemotes(['sender_fingerprint']);
 $message = $decrypter->verify($signed_message);
 ```
 

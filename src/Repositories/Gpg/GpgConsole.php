@@ -65,7 +65,7 @@ class GpgConsole extends AbstractCrypted implements EncryptableInterface, Decryp
             $origin = $this->saveFile($origin, $path);
         }
         $destiny = $this->generateFile('sig');
-        shell_exec("gpg -u {$this->key} --output {$destiny} --clearsign {$origin}");
+        shell_exec("gpg -u {$this->key} --output {$destiny} --clear-sign {$origin}");
         $response = file_get_contents($destiny);
         @unlink($destiny);
         return $response;
@@ -76,6 +76,16 @@ class GpgConsole extends AbstractCrypted implements EncryptableInterface, Decryp
         if (!$this->checkForFile($origin)) {
             $origin = $this->saveFile($origin, $path);
         }
-        return shell_exec("gpg --verify {$origin}");
+        $destiny = $this->generateFile('msg');
+        $remotes = implode("' -e '", $this->remotes);
+        //echo "gpg -q --output {$destiny} --decrypt {$origin} 2>&1 | grep -e {$remotes}";exit;
+        $result = shell_exec("gpg -q --output {$destiny} --decrypt {$origin} 2>&1 | grep -e '{$remotes}'");
+        //$result = shell_exec("gpg -q --output {$destiny} --decrypt {$origin} 2>&1 | grep 'gpg: Good signature from '");
+        if (!empty($result)) {
+            $response = file_get_contents($destiny);
+            @unlink($destiny);
+            return $response;
+        }
+        return false;
     }
 }
