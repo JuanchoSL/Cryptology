@@ -50,8 +50,10 @@ class GpgTest extends TestCase
     public function testEncodeDecodeLibFile($crypter, $decrypter)
     {
         $origin = 'docker-compose.yml';
-        $c = $crypter->encrypt($origin);
-        $decrypted = $decrypter->decrypt($c);
+        $crypted = $crypter->encrypt($origin);
+        file_put_contents('data/docker-compose.yml.gpg', $crypted);
+        $decrypted = $decrypter->decrypt('data/docker-compose.yml.gpg');
+        unlink('data/docker-compose.yml.gpg');
 
         $this->assertEquals(file_get_contents($origin), $decrypted);
     }
@@ -64,8 +66,7 @@ class GpgTest extends TestCase
     {
         $origin = 'message for encode';
         $crypted = $crypter->encrypt($origin);
-        file_put_contents('data/docker-compose.yml.gpg', $crypted);
-        $decrypted = $decrypter->decrypt('data/docker-compose.yml.gpg');
+        $decrypted = $decrypter->decrypt($crypted);
         $this->assertEquals($origin, $decrypted);
     }
 
@@ -80,17 +81,17 @@ class GpgTest extends TestCase
         file_put_contents('data/docker-compose.yml.gpg', $crypted);
         $decrypted = $decrypter->decrypt('data/docker-compose.yml.gpg');
         $this->assertEquals(file_get_contents($origin), $decrypted);
+        unlink('data/docker-compose.yml.gpg');
     }
 
     /**
      * @dataProvider providerCryptoData
-     *//*
-  public function testSignVerifyConsoleFile($crypter, $decrypter)
-  {
-      $origin = 'docker-compose.yml';
-
-      $crypted = $crypter->sign($origin);
-      $decrypted = $decrypter->verify($crypted);
-      $this->assertEquals(file_get_contents($origin), $decrypted);
-  }*/
+     */
+    public function testSignVerifyConsoleFile($crypter, $decrypter)
+    {
+        $origin = 'docker-compose.yml';
+        $crypted = $crypter->sign($origin);
+        $decrypted = $decrypter->verify($crypted);
+        $this->assertEquals(file_get_contents($origin), $decrypted);
+    }
 }
