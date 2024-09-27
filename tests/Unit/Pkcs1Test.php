@@ -70,7 +70,7 @@ class Pkcs1Test extends TestCase
         $text = realpath(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'phpunit.xml');//exit;
         $crypted = $origin->encrypt($text);
         $sign = $origin->sign($crypted[0]);
-        $public_origin = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'server.pub';
+        $public_origin = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . getenv('SERVER_PUBLIC');
         $decrypter->setRemotes([$public_origin, current($crypted[1])]);
         $decrypter->setPassword(current($crypted[1]));
         $decrypted = $decrypter->verify($sign);
