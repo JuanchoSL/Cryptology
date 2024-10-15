@@ -11,9 +11,9 @@ use JuanchoSL\Cryptology\Repositories\Openssl\Traits\PasswordTrait;
 
 class Password extends AbstractOpenssl implements EncryptableInterface, DecryptableInterface, UsePasswordInterface
 {
-    
+
     use PasswordTrait;
-    
+
     const OPTION_CIPHER = 'cipher';
 
     protected string $cipher = 'AES-256-CBC';

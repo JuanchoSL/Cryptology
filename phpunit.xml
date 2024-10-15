@@ -6,15 +6,15 @@
         </testsuite>
     </testsuites>
     <php>
-        <env name="SERVER_PRIVATE" value="data/server.key" force="true" />
-        <env name="SERVER_CERT" value="data/server.crt" force="true" />
-        <env name="SERVER_PUBLIC" value="data/server.pub" force="true" />
-        <env name="SOCKET_PRIVATE" value="data/socket.key" force="true" />
-        <env name="SOCKET_CERT" value="data/socket.crt" force="true" />
-        <env name="SOCKET_PUBLIC" value="data/socket.pub" force="true" />
-        <env name="GPG_SERVER_KEY" value="3D9835CA46B963A6EFDBE15EBD4DF686C5B7DCAB" force="true" />
-        <env name="GPG_SERVER_PASS" value="kyoku" force="true" />
-        <env name="GPG_CLIENT_KEY" value="3D9835CA46B963A6EFDBE15EBD4DF686C5B7DCAB" force="true" />
-        <env name="GPG_CLIENT_PASS" value="kyoku" force="true" />
+        <env name="SERVER_PRIVATE" value="certs/server.key" force="true" />
+        <env name="SERVER_CERT" value="certs/server.crt" force="true" />
+        <env name="SERVER_PUBLIC" value="certs/server.pub" force="true" />
+        <env name="SOCKET_PRIVATE" value="certs/socket.key" force="true" />
+        <env name="SOCKET_CERT" value="certs/socket.crt" force="true" />
+        <env name="SOCKET_PUBLIC" value="certs/socket.pub" force="true" />
+        <env name="GPG_SERVER_KEY" value="572A0A03F67FD96351BBF7F3FC869096CAF45839" force="true" />
+        <env name="GPG_SERVER_PASS" value="password" force="true" />
+        <env name="GPG_CLIENT_KEY" value="572A0A03F67FD96351BBF7F3FC869096CAF45839" force="true" />
+        <env name="GPG_CLIENT_PASS" value="password" force="true" />
     </php>
 </phpunit>

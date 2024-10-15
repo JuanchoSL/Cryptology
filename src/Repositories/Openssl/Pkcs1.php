@@ -90,7 +90,7 @@ class Pkcs1 extends AbstractOpenssl implements MultiReceiverInterface, MultiEncr
         }
         return false;
     }
-    
+
     public function verify(string $origin): bool|string
     {
         if (empty($this->certificates)) {
@@ -100,7 +100,7 @@ class Pkcs1 extends AbstractOpenssl implements MultiReceiverInterface, MultiEncr
             $origin = $this->getFromFile($origin);
         }
         list($origin, $signature) = explode(PHP_EOL . PHP_EOL, $origin, 2);
-        if(openssl_verify($origin, $signature, $this->certificates, $this->algo) > 0){
+        if (openssl_verify($origin, $signature, $this->certificates, $this->algo) > 0) {
             return $origin;
         }
         return false;

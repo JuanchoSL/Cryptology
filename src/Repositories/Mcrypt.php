@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace JuanchoSL\Cryptology\Repositories;
+
 use JuanchoSL\Cryptology\AbstractCrypted;
 use JuanchoSL\Cryptology\Contracts\DecryptableInterface;
 use JuanchoSL\Cryptology\Contracts\EncryptableInterface;

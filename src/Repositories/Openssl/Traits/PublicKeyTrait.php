@@ -14,7 +14,6 @@ trait PublicKeyTrait
             $credential = $this->getFromFile($credential);
         }
         $this->public_key = openssl_pkey_get_public($credential);
-        $this->chunk = intval(openssl_pkey_get_details($this->public_key)['bits'] / 8);
         return $this;
     }
 

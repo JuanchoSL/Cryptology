@@ -14,7 +14,6 @@ trait PrivateKeyTrait
             $credential = $this->getFromFile($credential);
         }
         $this->private_key = openssl_get_privatekey($credential, $passphrase) or $this->error();
-        $this->chunk = intval(openssl_pkey_get_details($this->private_key)['bits'] / 8);
         return $this;
     }
 

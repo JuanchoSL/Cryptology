@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace JuanchoSL\Cryptology\Contracts;
 
-interface VerifyableInterface extends DecryptableInterface
+interface VerifyableInterface extends MultiReceiverInterface
 {
     /**
      * Verify if a message is successly signed

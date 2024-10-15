@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace JuanchoSL\Cryptology\Repositories\Openssl;
 
-use JuanchoSL\Cryptology\Contracts\DecryptableInterface;
-use JuanchoSL\Cryptology\Contracts\EncryptableInterface;
 use JuanchoSL\Cryptology\Contracts\UseMyPublicKeyInterface;
 use JuanchoSL\Cryptology\Repositories\Openssl\Traits\PublicKeyTrait;
 use JuanchoSL\Exceptions\PreconditionRequiredException;
 
-class PublicKey extends AbstractAsymmetric implements EncryptableInterface, DecryptableInterface, UseMyPublicKeyInterface
+class PublicKey extends AbstractAsymmetric implements UseMyPublicKeyInterface
 {
 
     use PublicKeyTrait;
@@ -24,7 +22,8 @@ class PublicKey extends AbstractAsymmetric implements EncryptableInterface, Decr
             $origin = $this->getFromFile($origin);
         }
         $response = '';
-        foreach (str_split($origin, $this->chunk) as $chunk) {
+        $chunks = intval(openssl_pkey_get_details($this->public_key)['bits'] / 8) - 11;
+        foreach (str_split($origin, $chunks) as $chunk) {
             if (openssl_public_encrypt($chunk, $result, $this->public_key, $this->padding) === false) {
                 $this->error();
             }
@@ -42,7 +41,8 @@ class PublicKey extends AbstractAsymmetric implements EncryptableInterface, Decr
             $origin = $this->getFromFile($origin);
         }
         $response = '';
-        foreach (str_split($origin, $this->chunk) as $chunk) {
+        $chunks = intval(openssl_pkey_get_details($this->public_key)['bits'] / 8);
+        foreach (str_split($origin, $chunks) as $chunk) {
             if (openssl_public_decrypt($chunk, $result, $this->public_key, $this->padding) === false) {
                 $this->error();
             }
