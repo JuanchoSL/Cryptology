@@ -85,7 +85,6 @@ class GpgConsole extends AbstractCrypted implements EncryptableInterface, Decryp
             $origin = $this->saveFile($origin, $path);
         }
         if (false) {
-            echo "gpg -q -u {$this->key} --passphrase {$this->password} --textmode --clear-sign {$origin}";exit;
             $response = shell_exec("gpg -q -u {$this->key} --passphrase {$this->password} --textmode --clear-sign {$origin}");
         } else {
             $destiny = $this->generateFile('sig');
