@@ -3,11 +3,13 @@
 declare(strict_types=1);
 
 namespace JuanchoSL\Cryptology\Repositories\Openssl\Traits;
-use JuanchoSL\Exceptions\PreconditionRequiredException;
 
+use JuanchoSL\Exceptions\PreconditionRequiredException;
 
 trait SimpleSslSign
 {
+
+    use PrivateKeyTrait;
 
     public function sign(string $origin): bool|string
     {

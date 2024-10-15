@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 namespace JuanchoSL\Cryptology\Repositories\Openssl;
 
-use JuanchoSL\Cryptology\Contracts\DecryptableInterface;
-use JuanchoSL\Cryptology\Contracts\EncryptableInterface;
 use JuanchoSL\Cryptology\Contracts\UseMyPrivateKeyInterface;
-use JuanchoSL\Cryptology\Repositories\Openssl\Traits\PrivateKeyTrait;
 use JuanchoSL\Exceptions\PreconditionRequiredException;
 
-class PrivateKey extends AbstractAsymmetric implements EncryptableInterface, DecryptableInterface, UseMyPrivateKeyInterface
+class PrivateKey extends AbstractAsymmetric implements UseMyPrivateKeyInterface
 {
-
-    use PrivateKeyTrait;
 
     public function encrypt(string $origin): string
     {
@@ -23,8 +18,9 @@ class PrivateKey extends AbstractAsymmetric implements EncryptableInterface, Dec
         if ($this->checkForFile($origin)) {
             $origin = $this->getFromFile($origin);
         }
+        $chunks = intval(openssl_pkey_get_details($this->private_key)['bits'] / 8) - 11;
         $response = '';
-        foreach (str_split($origin, $this->chunk) as $chunk) {
+        foreach (str_split($origin, $chunks) as $chunk) {
             if (openssl_private_encrypt($chunk, $result, $this->private_key, $this->padding) === false) {
                 $this->error();
             }
@@ -32,7 +28,7 @@ class PrivateKey extends AbstractAsymmetric implements EncryptableInterface, Dec
         }
         return $response;
     }
-    
+
     public function decrypt(string $origin): string
     {
         if (empty($this->private_key)) {
@@ -42,7 +38,8 @@ class PrivateKey extends AbstractAsymmetric implements EncryptableInterface, Dec
             $origin = $this->getFromFile($origin);
         }
         $response = '';
-        foreach (str_split($origin, $this->chunk) as $chunk) {
+        $chunks = intval(openssl_pkey_get_details($this->private_key)['bits'] / 8);
+        foreach (str_split($origin, $chunks) as $chunk) {
             if (openssl_private_decrypt($chunk, $result, $this->private_key, $this->padding) === false) {
                 $this->error();
             }
@@ -50,4 +47,5 @@ class PrivateKey extends AbstractAsymmetric implements EncryptableInterface, Dec
         }
         return $response;
     }
+
 }

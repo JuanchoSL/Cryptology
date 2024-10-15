@@ -28,7 +28,7 @@ $crypted_message = $crypter->encrypt('A message to encrypt');
 
 $decrypter = new Password;
 $decrypter->setPassword('myPassword');
-$decrypted_message = $decrypter->deecrypt($crypted_message);
+$decrypted_message = $decrypter->decrypt($crypted_message);
 ```
 
 ### Asymmetric PrivateKey/PublicKey
@@ -215,7 +215,7 @@ $message = $decrypter->verify($signed_message);
 
 ## Older systems
 
-We add an older type of encryption in order to be abble to mantain our systems
+We add an older type of encryption in order to be able to mantain our systems
 
 ### Mcrypt
 
@@ -228,4 +228,60 @@ $crypted_message = $crypter->encrypt('A message to encrypt');
 $decrypter = new Mcrypt;
 $decrypter->setPassword('myPassword');
 $decrypted_message = $decrypter->decrypt($crypted_message);
+```
+
+## Utils
+
+For create a GPG key use the console and follow the instructions, updating the phpunit.xml with the new credentials
+```bash
+root@1be56db22035:/application# gpg --full-generate-key
+gpg (GnuPG) 2.2.40; Copyright (C) 2022 g10 Code GmbH
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+  (14) Existing key from card
+Your selection? 1
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (3072) 1024
+Requested keysize is 1024 bits
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0) 365
+Key expires at Wed Oct 15 17:10:13 2025 UTC
+Is this correct? (y/N) y
+
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: Juan Sanchez
+Email address: JuanchoSL@hotmail.com
+Comment: Cryptology
+You selected this USER-ID:
+    "Juan Sanchez (Cryptology) <JuanchoSL@hotmail.com>"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+gpg: directory '/root/.gnupg/openpgp-revocs.d' created
+gpg: revocation certificate stored as '/root/.gnupg/openpgp-revocs.d/572A0A03F67FD96351BBF7F3FC869096CAF45839.rev'
+public and secret key created and signed.
+
+pub   rsa1024 2024-10-15 [SC] [expires: 2025-10-15]
+      572A0A03F67FD96351BBF7F3FC869096CAF45839
+uid                      Juan Sanchez (Cryptology) <JuanchoSL@hotmail.com>
+sub   rsa1024 2024-10-15 [E] [expires: 2025-10-15]
 ```

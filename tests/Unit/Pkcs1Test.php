@@ -23,16 +23,16 @@ class Pkcs1Test extends TestCase
         $key_receiver = $cert_path . DIRECTORY_SEPARATOR .  getenv('SOCKET_PRIVATE');
         return [
             'PrivatePublicString' => [
-                (new Pkcs1())->setRemotes([file_get_contents($public_receiver)])->setPrivateKey($key_origin),//->setPublicKey($public_origin),
-                (new Pkcs1())->setRemotes([file_get_contents($public_origin)])->setPrivateKey($key_receiver),//->setPublicKey($public_receiver),
+                (new Pkcs1())->setRemotes([file_get_contents($public_receiver)])->setPrivateKey($key_origin),
+                (new Pkcs1())->setRemotes([file_get_contents($public_origin)])->setPrivateKey($key_receiver),
             ],
             'PrivatePublicFile' => [
-                (new Pkcs1)->setRemotes(['file://' . $public_receiver])->setPrivateKey($key_origin),//->setPublicKey($public_origin),
-                (new Pkcs1)->setRemotes(['file://' . $public_origin])->setPrivateKey($key_receiver),//->setPublicKey($public_receiver),
+                (new Pkcs1)->setRemotes(['file://' . $public_receiver])->setPrivateKey($key_origin),
+                (new Pkcs1)->setRemotes(['file://' . $public_origin])->setPrivateKey($key_receiver),
             ],
             'PrivatePublicFilepath' => [
-                (new Pkcs1())->setRemotes([$public_receiver])->setPrivateKey($key_origin),//->setPublicKey($public_origin),
-                (new Pkcs1())->setRemotes([$public_origin])->setPrivateKey($key_receiver),//->setPublicKey($public_receiver),
+                (new Pkcs1())->setRemotes([$public_receiver])->setPrivateKey($key_origin),
+                (new Pkcs1())->setRemotes([$public_origin])->setPrivateKey($key_receiver),
             ]
         ];
     }

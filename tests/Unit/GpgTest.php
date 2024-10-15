@@ -51,9 +51,9 @@ class GpgTest extends TestCase
     {
         $origin = 'docker-compose.yml';
         $crypted = $crypter->encrypt(file_get_contents($origin));
-        file_put_contents('data/docker-compose.yml.gpg', $crypted);
-        $decrypted = $decrypter->decrypt('data/docker-compose.yml.gpg');
-        unlink('data/docker-compose.yml.gpg');
+        file_put_contents(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'docker-compose.yml.gpg', $crypted);
+        $decrypted = $decrypter->decrypt(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'docker-compose.yml.gpg');
+        unlink(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'docker-compose.yml.gpg');
 
         $this->assertEquals(file_get_contents($origin), $decrypted);
     }
@@ -65,10 +65,10 @@ class GpgTest extends TestCase
     {
         $origin = 'docker-compose.yml';
         $crypted = $crypter->encrypt($origin);
-        file_put_contents('data/docker-compose.yml.gpg', $crypted);
-        $decrypted = $decrypter->decrypt('data/docker-compose.yml.gpg');
+        file_put_contents(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'docker-compose.yml.gpg', $crypted);
+        $decrypted = $decrypter->decrypt(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'docker-compose.yml.gpg');
         $this->assertEquals(file_get_contents($origin), $decrypted);
-        unlink('data/docker-compose.yml.gpg');
+        unlink(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'docker-compose.yml.gpg');
     }
 
     /**

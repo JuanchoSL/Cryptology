@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace JuanchoSL\Cryptology\Contracts;
 
-interface SignableInterface
+interface SignableInterface extends UseMyPrivateKeyInterface
 {
     /**
      * Generate a signature from the provided text, usually the message to send

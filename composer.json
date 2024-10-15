@@ -1,6 +1,6 @@
 {
     "name": "juanchosl/cryptology",
-    "description": "Little encrypt/decrypt tools",
+    "description": "Little encrypt/decrypt tools in order to crypt, decrypt, sign or verify messages, tests or files using distincts formats with the same way",
     "type": "library",
     "license": "MIT",
     "homepage": "https://github.com/JuanchoSL/Cryptology",
@@ -13,7 +13,11 @@
         "openssl",
         "gpg",
         "gnupg",
-        "mcrypt"
+        "mcrypt",
+        "pkcs1",
+        "pkcs7",
+        "smime",
+        "cms"
     ],
     "authors": [
         {
