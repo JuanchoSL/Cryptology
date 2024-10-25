@@ -51,6 +51,6 @@ abstract class AbstractCrypted
 
     public function save(string $content, string $filename): bool
     {
-        return file_put_contents($filename, $content);
+        return file_put_contents($filename, $content) !== false;
     }
 }
