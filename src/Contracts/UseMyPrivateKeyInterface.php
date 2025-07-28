@@ -12,5 +12,5 @@ interface UseMyPrivateKeyInterface
      * @param string $password The password of a private key if exists
      * @return void
      */
-    public function setPrivateKey(\OpenSSLAsymmetricKey|\OpenSSLCertificate|string $key, string $password = null): static;
+    public function setPrivateKey(\OpenSSLAsymmetricKey|\OpenSSLCertificate|string $key, ?string $password = null): static;
 }

@@ -23,7 +23,7 @@ class GpgConsole extends AbstractCrypted implements EncryptableInterface, Decryp
     protected string $password;
     protected array $remotes;
 
-    public function setPrivateKey(string|\OpenSSLAsymmetricKey|\OpenSSLCertificate $key, string|null $password = null): static
+    public function setPrivateKey(string|\OpenSSLAsymmetricKey|\OpenSSLCertificate $key, ?string $password = null): static
     {
         $this->key = $key;
         $this->password = $password;

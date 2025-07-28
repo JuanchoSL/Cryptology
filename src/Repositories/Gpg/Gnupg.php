@@ -31,7 +31,7 @@ class Gnupg extends AbstractCrypted implements EncryptableInterface, Decryptable
         $this->resource = gnupg_init();
     }
     
-    public function setPrivateKey(string|\OpenSSLAsymmetricKey|\OpenSSLCertificate $key, string|null $password = null): static
+    public function setPrivateKey(string|\OpenSSLAsymmetricKey|\OpenSSLCertificate $key, ?string $password = null): static
     {
         gnupg_adddecryptkey($this->resource, $key, $password);
         return $this;
