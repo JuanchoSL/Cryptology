@@ -37,7 +37,7 @@ class McryptTest extends TestCase
      */
     public function testEncodeDecodeFile(EncryptableInterface|UsePasswordInterface $origin, DecryptableInterface|UsePasswordInterface $destiny)
     {
-        $text = realpath(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'phpunit.xml');//exit;
+        $text = realpath(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'README.md');//exit;
         $crypted = $origin->encrypt($text);
         $decrypted = $destiny->decrypt($crypted);
         $this->assertEquals(file_get_contents($text), $decrypted);

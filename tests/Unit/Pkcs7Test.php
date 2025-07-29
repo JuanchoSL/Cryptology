@@ -4,7 +4,6 @@ namespace JuanchoSL\Cryptology\Tests;
 
 use JuanchoSL\Cryptology\Contracts\DecryptableInterface;
 use JuanchoSL\Cryptology\Contracts\EncryptableInterface;
-use JuanchoSL\Cryptology\Contracts\MultiReceiverInterface;
 use JuanchoSL\Cryptology\Contracts\SignableInterface;
 use JuanchoSL\Cryptology\Contracts\VerifyableInterface;
 use JuanchoSL\Cryptology\Repositories\Openssl\Pkcs7;
@@ -63,7 +62,7 @@ class Pkcs7Test extends TestCase
      */
     public function testSignedFile(SignableInterface&EncryptableInterface $origin,VerifyableInterface&DecryptableInterface $decrypter)
     {
-        $text = realpath(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'phpunit.xml');//exit;
+        $text = realpath(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'README.md');//exit;
         $crypted = $origin->sign($text);
         $crypted = $origin->encrypt($crypted);
         $crypted = $origin->sign($crypted);
