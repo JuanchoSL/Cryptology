@@ -49,7 +49,7 @@ class GpgTest extends TestCase
      */
     public function testEncodeDecodeTextFile($crypter, $decrypter)
     {
-        $origin = 'docker-compose.yml';
+        $origin = realpath(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'docker-compose.yml');
         $crypted = $crypter->encrypt(file_get_contents($origin));
         file_put_contents(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'docker-compose.yml.gpg', $crypted);
         $decrypted = $decrypter->decrypt(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'docker-compose.yml.gpg');
@@ -63,7 +63,7 @@ class GpgTest extends TestCase
      */
     public function testEncodeDecodeFile($crypter, $decrypter)
     {
-        $origin = 'docker-compose.yml';
+        $origin = realpath(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'docker-compose.yml');
         $crypted = $crypter->encrypt($origin);
         file_put_contents(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'docker-compose.yml.gpg', $crypted);
         $decrypted = $decrypter->decrypt(sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'docker-compose.yml.gpg');
@@ -76,7 +76,7 @@ class GpgTest extends TestCase
      */
     public function testEncodeDecodeFileText($crypter, $decrypter)
     {
-        $origin = 'docker-compose.yml';
+        $origin = realpath(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'docker-compose.yml');
         $crypted = $crypter->encrypt($origin);
         $decrypted = $decrypter->decrypt($crypted);
         $this->assertEquals(file_get_contents($origin), $decrypted);
@@ -87,7 +87,7 @@ class GpgTest extends TestCase
      */
     public function testSignVerifyConsoleFile($crypter, $decrypter)
     {
-        $origin = 'docker-compose.yml';
+        $origin = realpath(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'docker-compose.yml');
         $crypted = $crypter->sign($origin);
         $decrypted = $decrypter->verify($crypted);
         $this->assertEquals(file_get_contents($origin), $decrypted);

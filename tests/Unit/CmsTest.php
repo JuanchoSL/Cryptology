@@ -88,7 +88,7 @@ class CmsTest extends TestCase
      */
     public function testSignedFile(SignableInterface&EncryptableInterface $origin,VerifyableInterface&DecryptableInterface $decrypter)
     {
-        $text = realpath(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'phpunit.xml');//exit;
+        $text = realpath(dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'README.md');//exit;
         $crypted = $origin->sign($text);
         $crypted = $origin->encrypt($crypted);
         $crypted = $origin->sign($crypted);
