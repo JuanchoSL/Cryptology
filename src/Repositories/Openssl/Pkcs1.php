@@ -16,6 +16,8 @@ use JuanchoSL\Cryptology\Repositories\Openssl\Traits\PasswordTrait;
 use JuanchoSL\Cryptology\Repositories\Openssl\Traits\PrivateKeyTrait;
 use JuanchoSL\Cryptology\Repositories\Openssl\Traits\PublicKeyTrait;
 use JuanchoSL\Cryptology\Repositories\Openssl\Traits\RemoteCertificatesTrait;
+use JuanchoSL\Cryptology\Tools\Openssl\CertificateTools;
+use JuanchoSL\Cryptology\Tools\Openssl\PublicKeyTools;
 use JuanchoSL\Exceptions\PreconditionRequiredException;
 
 class Pkcs1 extends AbstractOpenssl implements MultiReceiverInterface, MultiEncryptableInterface, DecryptableInterface, UseMyPrivateKeyInterface, UseMyPublicKeyInterface, UsePasswordInterface, SignableInterface, VerifyableInterface
@@ -86,8 +88,9 @@ class Pkcs1 extends AbstractOpenssl implements MultiReceiverInterface, MultiEncr
         }
         $signature = '';
         if (openssl_sign($origin, $signature, $this->private_key, $this->algo)) {
-            return $origin . PHP_EOL . PHP_EOL . $signature;
+            return bin2hex($origin) . PHP_EOL . PHP_EOL . bin2hex($signature);
         }
+        $this->error();
         return false;
     }
 
@@ -96,13 +99,20 @@ class Pkcs1 extends AbstractOpenssl implements MultiReceiverInterface, MultiEncr
         if (empty($this->certificates)) {
             throw new PreconditionRequiredException("The public keys from accepted senders are required in order to verify a message");
         }
+        $certificates = $this->certificates;
+        if (count($certificates) == 1) {
+            $certificates[] = $this->password;
+        }
         if ($this->checkForFile($origin)) {
             $origin = $this->getFromFile($origin);
         }
         list($origin, $signature) = explode(PHP_EOL . PHP_EOL, $origin, 2);
-        if (openssl_verify($origin, $signature, $this->certificates, $this->algo) > 0) {
+        $signature = ctype_print($signature) ? hex2bin($signature) : $signature;
+        $origin = ctype_print($origin) ? hex2bin($origin) : $origin;
+        if (openssl_verify($origin, $signature, $certificates, $this->algo) > 0) {
             return $origin;
         }
+        $this->error();
         return false;
     }
 }
