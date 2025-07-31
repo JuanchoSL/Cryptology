@@ -29,7 +29,7 @@ abstract class AbstractCrypted
         return $origin;
     }
 
-    protected function generateFile(string $ext, string $name = null, string $dir = null): string
+    protected function generateFile(string $ext, ?string $name = null, ?string $dir = null): string
     {
         if (is_null($dir)) {
             $dir = sys_get_temp_dir();
@@ -40,7 +40,7 @@ abstract class AbstractCrypted
         return $dir . DIRECTORY_SEPARATOR . $name . '.' . $ext;
     }
 
-    protected function saveFile(string $content, string &$filename = null): string
+    protected function saveFile(string $content, ?string &$filename = null): string
     {
         if (is_null($filename)) {
             $filename = $this->generateFile('tmp');
